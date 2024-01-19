@@ -13,12 +13,32 @@
 #  For details see the accompanying COPYING-CMAKE-SCRIPTS file.
 #
 
-find_path(SNDFILE_INCLUDE_DIR NAMES sndfile.h)
+find_path(SNDFILE_INCLUDE_DIR
+    NAMES
+      sndfile.h
+    PATHS
+      /usr/include
+      /usr/local/include
+      /opt/local/include
+      /sw/include
+)
 
-find_library(SNDFILE_LIBRARY NAMES sndfile sndfile-1)
+find_library(SNDFILE_LIBRARY
+    NAMES
+      sndfile sndfile-1
+    PATHS
+      /usr/lib
+      /usr/local/lib
+      /opt/local/lib
+      /sw/lib
+)
 
-set(SNDFILE_INCLUDE_DIRS ${SNDFILE_INCLUDE_DIR})
-set(SNDFILE_LIBRARIES ${SNDFILE_LIBRARY})
+set(SNDFILE_INCLUDE_DIRS
+    ${SNDFILE_INCLUDE_DIR}
+)
+set(SNDFILE_LIBRARIES
+    ${SNDFILE_LIBRARY}
+)
 
 INCLUDE(FindPackageHandleStandardArgs)
 # handle the QUIETLY and REQUIRED arguments and set SNDFILE_FOUND to TRUE if

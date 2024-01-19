@@ -1,28 +1,28 @@
-# - Try to find DUMB
-# Once done this will define
+# - Find DUMB
+# Find the native DUMB includes and library
 #
-#  DUMB_FOUND - system has DUMB
-#  DUMB_INCLUDE_DIRS - the DUMB include directory
-#  DUMB_LIBRARIES - Link these to use DUMB
-#
-#  Copyright © 2006  Wengo
-#  Copyright © 2009 Guillaume Martres
-#
-#  Redistribution and use is allowed according to the terms of the New
-#  BSD license.
-#  For details see the accompanying COPYING-CMAKE-SCRIPTS file.
-#
+#  DUMB_INCLUDE_DIR - where to find dumb.h
+#  DUMB_LIBRARIES   - List of libraries when using dumb
+#  DUMB_FOUND       - True if dumb found.
 
-find_path(DUMB_INCLUDE_DIR NAMES dumb.h)
+IF(DUMB_INCLUDE_DIR AND DUMB_LIBRARIES)
+  # Already in cache, be silent
+  SET(DUMB_FIND_QUIETLY TRUE)
+ENDIF(DUMB_INCLUDE_DIR AND DUMB_LIBRARIES)
 
-find_library(DUMB_LIBRARY NAMES dumb)
+FIND_PATH(DUMB_INCLUDE_DIR dumb.h
+          PATHS "${DUMB_DIR}"
+          PATH_SUFFIXES include
+          )
 
+FIND_LIBRARY(DUMB_LIBRARIES NAMES dumb
+             PATHS "${DUMB_DIR}"
+             PATH_SUFFIXES lib
+             )
+
+MARK_AS_ADVANCED(DUMB_LIBRARIES DUMB_INCLUDE_DIR)
+
+# handle the QUIETLY and REQUIRED arguments and set DUMB_FOUND to TRUE if
+# all listed variables are TRUE
 INCLUDE(FindPackageHandleStandardArgs)
-# handle the QUIETLY and REQUIRED arguments and set DUMB_FOUND to TRUE if all
-# listed variables are TRUE
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(DUMB DEFAULT_MSG DUMB_LIBRARY DUMB_INCLUDE_DIR)
-
-if(DUMB_FOUND)
-    set(DUMB_INCLUDE_DIRS ${DUMB_INCLUDE_DIR})
-    set(DUMB_LIBRARIES ${DUMB_LIBRARY})
-endif(DUMB_FOUND)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(DUMB DEFAULT_MSG DUMB_LIBRARIES DUMB_INCLUDE_DIR)
